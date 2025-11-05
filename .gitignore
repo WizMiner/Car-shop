@@ -43,3 +43,6 @@ next-env.d.ts
 
 # CHANGELOG.md
 changelog.md
+
+# backups
+backup/

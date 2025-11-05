@@ -1,3 +1,4 @@
+// lib/api.ts
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
 
 import type {
@@ -44,9 +45,13 @@ export function buildQuery(
 
 // Products
 export async function fetchProducts(
-  query: { page?: number; categoryId?: string } = {}
+  query: { page?: number; categoryId?: string; perPage?: number } = {}
 ) {
-  const q = buildQuery({ page: query.page, categoryId: query.categoryId });
+  const q = buildQuery({ 
+    page: query.page, 
+    categoryId: query.categoryId,
+    perPage: query.perPage 
+  });
   return request<{ products: Product[]; meta: Meta }>(`/api/products${q}`, {
     next: { revalidate: 60 },
   });
@@ -57,8 +62,11 @@ export async function fetchProduct(id: string) {
 }
 
 // Bookings
-export async function fetchBookings(query: { page?: number } = {}) {
-  const q = buildQuery({ page: query.page });
+export async function fetchBookings(query: { page?: number; perPage?: number } = {}) {
+  const q = buildQuery({ 
+    page: query.page,
+    perPage: query.perPage 
+  });
   return request<{ bookings: Booking[]; meta: Meta }>(`/api/bookings${q}`, {
     next: { revalidate: 60 },
   });
@@ -69,8 +77,11 @@ export async function fetchBooking(id: string) {
 }
 
 // Testimonials
-export async function fetchTestimonials(query: { page?: number } = {}) {
-  const q = buildQuery({ page: query.page });
+export async function fetchTestimonials(query: { page?: number; perPage?: number } = {}) {
+  const q = buildQuery({ 
+    page: query.page,
+    perPage: query.perPage 
+  });
   return request<{ testimonials: Testimonial[]; meta: Meta }>(
     `/api/testimonials${q}`,
     { next: { revalidate: 120 } }
@@ -84,8 +95,11 @@ export async function fetchTestimonial(id: string) {
 }
 
 // Blogs
-export async function fetchBlogs(query: { page?: number } = {}) {
-  const q = buildQuery({ page: query.page });
+export async function fetchBlogs(query: { page?: number; perPage?: number } = {}) {
+  const q = buildQuery({ 
+    page: query.page,
+    perPage: query.perPage 
+  });
   return request<{ blogs: Blog[]; meta: Meta }>(`/api/blogs${q}`, {
     next: { revalidate: 120 },
   });

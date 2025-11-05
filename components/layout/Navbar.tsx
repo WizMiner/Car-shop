@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import Container from "@/components/ui/Container";
-import ThemeToggle from "@/components/theme/ThemeToggle";
+// import ThemeToggle from "@/components/theme/ThemeToggle";
 
 export default function Navbar() {
   return (
@@ -16,6 +16,7 @@ export default function Navbar() {
           <span className="text-lg font-semibold">CarShop</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
+          <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
           <Link href="/cars" className="hover:text-primary-600 transition-colors">Products</Link>
           <Link href="/categories" className="hover:text-primary-600 transition-colors">Categories</Link>
           <Link href="/blogs" className="hover:text-primary-600 transition-colors">Blog</Link>
@@ -23,7 +24,7 @@ export default function Navbar() {
           <Link href="/bookings" className="hover:text-primary-600 transition-colors">Bookings</Link>
         </nav>
         <div className="flex items-center gap-3">
-          <Link
+          {/* <Link
             href="#login"
             className="rounded-full border border-zinc-300 px-4 py-2 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
           >
@@ -34,8 +35,8 @@ export default function Navbar() {
             className="rounded-full bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700"
           >
             Shop Now
-          </Link>
-          <ThemeToggle />
+          </Link> */}
+          {/* <ThemeToggle /> */}
         </div>
       </Container>
     </header>

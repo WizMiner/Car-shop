@@ -1,17 +1,31 @@
 import React from "react";
+import Image from 'next/image';
 
-export type Testimonial = {
+export type TestimonialCardType = {
   id: string;
   name: string;
-  role?: string;
   content: string;
   rating?: number;
+  imageUrl?: string;
+  email?: string;
 };
 
-export default function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+export default function TestimonialCard({ testimonial }: { testimonial: TestimonialCardType }) {
   const stars = Math.max(0, Math.min(5, testimonial.rating ?? 5));
+
   return (
     <figure className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-950 dark:ring-zinc-800">
+      {testimonial.imageUrl && (
+        <div className="mb-3 h-12 w-12 overflow-hidden rounded-full ring-1 ring-zinc-200 dark:ring-zinc-800">
+          <Image 
+          src={testimonial.imageUrl} 
+          alt={testimonial.name} 
+          width={48} 
+          height={48}
+          unoptimized
+          className="object-cover w-full h-full" />
+        </div>
+      )}
       <div className="mb-3 flex items-center gap-1 text-amber-500">
         {Array.from({ length: 5 }).map((_, i) => (
           <span key={i}>{i < stars ? "★" : "☆"}</span>
@@ -22,12 +36,8 @@ export default function TestimonialCard({ testimonial }: { testimonial: Testimon
       </blockquote>
       <figcaption className="mt-4 text-sm font-medium">
         {testimonial.name}
-        {testimonial.role && (
-          <span className="text-zinc-500"> • {testimonial.role}</span>
-        )}
+        {testimonial.email && <span className="text-zinc-500"> • {testimonial.email}</span>}
       </figcaption>
     </figure>
   );
 }
-
-

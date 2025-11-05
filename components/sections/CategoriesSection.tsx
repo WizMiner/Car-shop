@@ -1,33 +1,49 @@
-import React from "react";
 import Container from "@/components/ui/Container";
-import CategoryCard, { Category } from "@/components/cards/CategoryCard";
+import CategoryCard, { CategoryCardType } from "@/components/cards/CategoryCard";
+import { Category as BackendCategory } from "@/lib/types";
 import Link from "next/link";
+import { API_BASE_URL } from "@/lib/api";
 
-const mockCategories: Category[] = [
-  { id: "c1", name: "SUVs", imageUrl: "/window.svg", count: 124 },
-  { id: "c2", name: "Sedans", imageUrl: "/file.svg", count: 98 },
-  { id: "c3", name: "Trucks", imageUrl: "/globe.svg", count: 76 },
-  { id: "c4", name: "Electric", imageUrl: "/next.svg", count: 64 },
-  { id: "c5", name: "Luxury", imageUrl: "/vercel.svg", count: 42 },
-  { id: "c6", name: "Hybrid", imageUrl: "/globe.svg", count: 53 },
-];
+function mapBackendCategory(c: BackendCategory): CategoryCardType {
+  const fullImage = c.image
+    ? c.image.startsWith("http")
+      ? c.image
+      : `${API_BASE_URL}/${c.image}`
+    : "/window.svg";
 
-export default function CategoriesSection() {
+  return {
+    id: c.id.toString(),
+    name: c.name,
+    imageUrl: fullImage,
+    // count: c.productCount ?? 0,
+  };
+}
+
+interface CategoriesSectionProps {
+  categories: BackendCategory[];
+}
+
+export default function CategoriesSection({ categories }: CategoriesSectionProps) {
+  const cardCategories = categories.map(mapBackendCategory);
+
   return (
     <section id="categories" className="py-14 sm:py-16 lg:py-20">
       <Container>
         <div className="mb-8 flex items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold sm:text-3xl">Browse by category</h2>
-          <Link href="/categories" className="text-sm font-medium text-primary-600 hover:underline">View all</Link>
+          <Link href="/categories" className="text-sm font-medium text-primary-600 hover:underline">
+            View all
+          </Link>
         </div>
+
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {mockCategories.map((c) => (
-            <CategoryCard key={c.id} category={c} />
+          {cardCategories.map((c) => (
+            <Link key={c.id} href={`/categories/${c.id}`}>
+              <CategoryCard category={c} />
+            </Link>
           ))}
         </div>
       </Container>
     </section>
   );
 }
-
-

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 
 export type Product = {
   id: string;
@@ -22,6 +22,7 @@ export default function ProductCard({ product }: Props) {
           src={product.imageUrl}
           alt={product.name}
           fill
+          unoptimized
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -35,18 +36,23 @@ export default function ProductCard({ product }: Props) {
         {product.tags && (
           <div className="flex flex-wrap gap-2">
             {product.tags.map((t) => (
-              <span key={t} className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-blue-700 ring-1 ring-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:ring-blue-900/50">
+              <span
+                key={t}
+                className="rounded-full bg-blue-50 px-2 py-0.5 text-xs text-blue-700 ring-1 ring-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:ring-blue-900/50"
+              >
                 {t}
               </span>
             ))}
           </div>
         )}
         <div className="pt-2">
-          <Button className="w-full" variant="secondary">View Details</Button>
+          <Link href={`/cars/${product.id}`} passHref>
+            <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </article>
   );
 }
-
-

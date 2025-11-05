@@ -1,42 +1,41 @@
-import React from "react";
 import Container from "@/components/ui/Container";
-import BlogCard, { Blog } from "@/components/cards/BlogCard";
+import BlogCard, { BlogCardType } from "@/components/cards/BlogCard";
+import { Blog as BackendBlog } from "@/lib/types";
 import Link from "next/link";
+import { API_BASE_URL } from "@/lib/api";
 
-const mockBlogs: Blog[] = [
-  {
-    id: "b1",
-    title: "How to choose the right SUV in 2025",
-    excerpt: "We compare size, safety, fuel economy, and tech across leading models...",
-    imageUrl: "/next.svg",
-    date: "Oct 21, 2025",
-  },
-  {
-    id: "b2",
-    title: "Electric cars: what you need to know",
-    excerpt: "Charging networks, battery health, and the real cost of ownership...",
-    imageUrl: "/globe.svg",
-    date: "Oct 10, 2025",
-  },
-  {
-    id: "b3",
-    title: "Top maintenance tips for a longer car life",
-    excerpt: "Simple routines that save thousands over the lifetime of your vehicle...",
-    imageUrl: "/file.svg",
-    date: "Sep 29, 2025",
-  },
-];
+function mapBackendBlog(b: BackendBlog): BlogCardType {
+  const fullImage = b.image ? `${API_BASE_URL}/${b.image}` : "/window.svg";
 
-export default function BlogSection() {
+  return {
+    id: b.id.toString(),
+    title: b.title,
+    excerpt: b.content.substring(0, 150) + "...",
+    imageUrl: fullImage,
+    author: b.User ? `${b.User.firstName} ${b.User.lastName}` : undefined,
+    date: b.createdAt ? new Date(b.createdAt).toLocaleDateString() : undefined,
+    category: b.Category?.name,
+  };
+}
+
+interface BlogSectionProps {
+  blogs: BackendBlog[];
+}
+
+export default function BlogSection({ blogs }: BlogSectionProps) {
+  const cardBlogs = blogs.map(mapBackendBlog);
+
   return (
     <section id="blog" className="py-14 sm:py-16 lg:py-20">
       <Container>
         <div className="mb-8 flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-semibold sm:text-3xl">From the Blog</h2>
-          <Link href="/blogs" className="text-sm font-medium text-primary-600 hover:underline">See all articles</Link>
+          <h2 className="text-2xl font-semibold sm:text-3xl">Latest Articles</h2>
+          <Link href="/blogs" className="text-sm font-medium text-primary-600 hover:underline">
+            Read all
+          </Link>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {mockBlogs.map((b) => (
+          {cardBlogs.map((b) => (
             <BlogCard key={b.id} blog={b} />
           ))}
         </div>
@@ -44,5 +43,3 @@ export default function BlogSection() {
     </section>
   );
 }
-
-
