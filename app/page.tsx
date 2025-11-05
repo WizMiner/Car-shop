@@ -55,8 +55,8 @@ export default async function Home() {
   return (
     <main className="bg-zinc-50 dark:bg-black">
       <Hero featuredProducts={featuredProducts} />
-      <ProductsSection products={featuredProducts} />
       <CategoriesSection categories={categories.slice(0, 6)} />
+      <ProductsSection products={featuredProducts} />
       <BlogSection blogs={recentBlogs} />
       <TestimonialsSection testimonials={testimonials} />
     </main>

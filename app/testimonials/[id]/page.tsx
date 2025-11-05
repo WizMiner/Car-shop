@@ -9,12 +9,7 @@ export default async function TestimonialDetailPage({ params }: { params: Promis
   const { id } = await params;
   const t: Testimonial = await fetchTestimonial(id);
 
-  const fullImage = t.image
-    ? t.image.startsWith("http")
-      ? t.image
-      : `${API_BASE_URL}/${t.image}`
-    : undefined;
-
+  const fullImage = t.image ? `${API_BASE_URL}/${t.image}` : undefined;
   return (
     <main className="bg-background text-foreground dark:bg-backgroundDark dark:text-foregroundDark">
       <Container className="py-10 sm:py-14 lg:py-16">

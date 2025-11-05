@@ -27,11 +27,8 @@ export default async function BlogsPage(props: {
         <SectionHeader title="Latest Articles" subtitle="News, tips, and stories from the road." />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((b: Blog) => {
-            const fullImage = b.image
-              ? b.image.startsWith("http")
-                ? b.image
-                : `${API_BASE_URL}/${b.image}`
-              : undefined;
+            const fullImage = b.image ? `${API_BASE_URL}/${b.image}` : "/window.svg";
+
             return (
               <Link
                 href={`/blogs/${b.id}`}
@@ -40,7 +37,13 @@ export default async function BlogsPage(props: {
               >
                 <div className="relative aspect-video overflow-hidden rounded-t-2xl">
                   {fullImage ? (
-                    <Image src={fullImage} alt={b.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" unoptimized />
+                    <Image
+                      src={fullImage}
+                      alt={b.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      unoptimized
+                    />
                   ) : (
                     <div className="h-full w-full bg-muted-100" />
                   )}

@@ -21,17 +21,14 @@ export default async function TestimonialsPage(props: {
   const page = getPageParam(sp, "page");
   const resp = await fetchTestimonials({ page });
   const data = resp?.testimonials ?? [];
+
   return (
     <main className="bg-background text-foreground dark:bg-backgroundDark dark:text-foregroundDark">
       <Container className="py-12 sm:py-16 lg:py-20">
         <SectionHeader title="What our customers say" subtitle="Real reviews from happy drivers." />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((t: Testimonial) => {
-            const fullImage = t.image
-              ? t.image.startsWith("http")
-                ? t.image
-                : `${API_BASE_URL}/${t.image}`
-              : undefined;
+            const fullImage = t.image ? `${API_BASE_URL}/${t.image}` : "/user-placeholder.svg";
             return (
               <Link
                 href={`/testimonials/${t.id}`}
@@ -39,17 +36,11 @@ export default async function TestimonialsPage(props: {
                 className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-zinc-200 transition duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
               >
                 <div className="mb-3 flex items-center gap-2">
-                  {fullImage ? (
-                    <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-zinc-200 dark:ring-zinc-800">
-                      <Image src={fullImage} alt={t.clientName} fill className="object-cover" unoptimized />
-                    </div>
-                  ) : (
-                    <div className="h-9 w-9 rounded-full bg-muted-100" />
-                  )}
+                  <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-zinc-200 dark:ring-zinc-800">
+                    <Image src={fullImage} alt={t.clientName} fill className="object-cover" unoptimized />
+                  </div>
                   <div className="text-sm font-medium">{t.clientName}</div>
-                  {t.User?.email && (
-                    <span className="text-xs text-zinc-500">• {t.User.email}</span>
-                  )}
+                  {t.User?.email && <span className="text-xs text-zinc-500">• {t.User.email}</span>}
                 </div>
                 <div className="mb-2 text-amber-500">
                   {Array.from({ length: 5 }).map((_, i) => (

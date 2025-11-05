@@ -5,11 +5,7 @@ import Link from "next/link";
 import { API_BASE_URL } from "@/lib/api";
 
 function mapBackendCategory(c: BackendCategory): CategoryCardType {
-  const fullImage = c.image
-    ? c.image.startsWith("http")
-      ? c.image
-      : `${API_BASE_URL}/${c.image}`
-    : "/window.svg";
+  const fullImage = c.image ? `${API_BASE_URL}/${c.image}` : "/window.svg";
 
   return {
     id: c.id.toString(),
@@ -38,7 +34,7 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cardCategories.map((c) => (
-            <Link key={c.id} href={`/categories/${c.id}`}>
+            <Link key={c.id} href={`/cars?categoryId=${c.id}`}>
               <CategoryCard category={c} />
             </Link>
           ))}

@@ -126,3 +126,18 @@ export async function fetchCategories() {
     next: { revalidate: 300 },
   });
 }
+
+// products by category ID
+export async function fetchProductsByCategory(
+  categoryId: string | number,
+  query: { page?: number; perPage?: number } = {}
+) {
+  const id = categoryId.toString();
+  const q = buildQuery({ 
+    page: query.page,
+    perPage: query.perPage 
+  });
+  return request<{ products: Product[]; meta: Meta }>(`/api/products/category/${id}${q}`, {
+    next: { revalidate: 60 },
+  });
+}

@@ -6,6 +6,7 @@ export type CategoryCardType = {
   name: string;
   imageUrl?: string;
   count?: number;
+  description?: string;
 };
 
 export default function CategoryCard({ category }: { category: CategoryCardType }) {
@@ -27,6 +28,11 @@ export default function CategoryCard({ category }: { category: CategoryCardType 
           <h3 className="text-base font-semibold">{category.name}</h3>
           {category.count !== undefined && (
             <p className="text-sm text-zinc-500">{category.count} items</p>
+          )}
+          {category.description && (
+            <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+              {category.description}
+            </p>
           )}
         </div>
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-white shadow-sm">

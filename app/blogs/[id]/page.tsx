@@ -9,11 +9,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
   const { id } = await params;
   const blog: Blog = await fetchBlog(id);
 
-  const fullImage = blog.image
-    ? blog.image.startsWith("http")
-      ? blog.image
-      : `${API_BASE_URL}/${blog.image}`
-    : undefined;
+  const fullImage = blog.image ? `${API_BASE_URL}/${blog.image}` : "/window.svg";
 
   const categoryName = blog.Category?.name ?? "Uncategorized";
   const publishDate = blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : "";
@@ -24,7 +20,13 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
         <div className="mx-auto max-w-3xl animate-fade-in">
           {fullImage && (
             <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800">
-              <Image src={fullImage} alt={blog.title} fill className="object-cover" unoptimized />
+              <Image
+                src={fullImage}
+                alt={blog.title}
+                fill
+                className="object-cover"
+                unoptimized
+              />
             </div>
           )}
           <h1 className="text-2xl font-heading font-semibold sm:text-3xl">{blog.title}</h1>

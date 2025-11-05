@@ -1,8 +1,8 @@
-// app/cars/page.tsx
+// app/cars/page.tsx (Updated to use fetchProductsByCategory when filtering)
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PaginationRouter from "@/components/navigation/PaginationRouter";
-import { fetchProducts } from "@/lib/api";
+import { fetchProducts, fetchProductsByCategory } from "@/lib/api";
 import { API_BASE_URL } from "@/lib/api";
 import type { Product } from "@/lib/types";
 import Image from "next/image";
@@ -27,11 +27,7 @@ function ProductCardInline({ p }: { p: Product }) {
     images = p.images;
   }
   const cover = images?.[0];
-  const fullCover = cover
-    ? cover.startsWith("http")
-      ? cover
-      : `${API_BASE_URL}/${cover}`
-    : undefined;
+  const fullCover = cover ? `${API_BASE_URL}/${cover}` : "/window.svg";
 
   return (
     <Link
@@ -93,9 +89,19 @@ export default async function CarsPage(props: {
   const sp = await props.searchParams;
   const page = getPageParam(sp, "page");
   const categoryId = getStrParam(sp, "categoryId");
-  const resp = await fetchProducts({ page, categoryId });
+
+  let resp;
+  if (categoryId) {
+    // Use dedicated category endpoint
+    resp = await fetchProductsByCategory(categoryId, { page });
+  } else {
+    // Use general paginated endpoint
+    resp = await fetchProducts({ page });
+  }
+
   const data = resp?.products ?? [];
   const meta = resp?.meta ?? { currentPage: page, totalPages: 1 };
+
   return (
     <main className="bg-background text-foreground dark:bg-backgroundDark dark:text-foregroundDark">
       <Container className="py-12 sm:py-16 lg:py-20">

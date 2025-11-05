@@ -1,12 +1,9 @@
 // app/cars/[id]/page.tsx
 import Container from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { fetchProduct } from "@/lib/api";
 import { API_BASE_URL } from "@/lib/api";
 import type { Product } from "@/lib/types";
 import Image from "next/image";
-import Link from "next/link";
-import BookingForm from "@/components/form/BookingForm";
 import BookingSection from "@/components/form/BookingSection";
 
 function parseArrayField(value: unknown): string[] {
