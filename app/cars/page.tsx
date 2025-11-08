@@ -67,7 +67,15 @@ function ProductCardInline({ p }: { p: Product }) {
           <span>Owner: {toOwnerName(p)}</span>
         </div>
       </div>
+      <div className="mt-4 flex justify-between gap-2 px-4 pb-4">
+        {/* Know More / View Details */}
+          <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+            View Details
+          </button>
+      </div>
+
     </Link>
+
   );
 }
 

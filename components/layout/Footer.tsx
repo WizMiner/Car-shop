@@ -9,8 +9,9 @@ export default function Footer() {
   ];
 
   const companyLinks = [
-    { name: "About", href: "/about" },
     { name: "Blog", href: "/blogs" },
+    { name: "About", href: "/abouts" },
+    { name: "Service", href: "/services" },
     { name: "Testimonials", href: "/testimonials" },
   ];
 
@@ -28,10 +29,10 @@ export default function Footer() {
           {/* Brand / About */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm">
-                CS
+              <span className="inline-flex h-10 w-20 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm">
+                ADDINAS
               </span>
-              <span className="text-lg font-semibold">CarShop</span>
+              <span className="text-lg font-semibold">Car Rental</span>
             </Link>
             <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Your trusted platform for quality cars and automotive resources.
@@ -83,7 +84,7 @@ export default function Footer() {
 
         {/* Bottom: Copyright */}
         <div className="border-t border-zinc-200/50 dark:border-zinc-800/50 pt-6 text-sm text-zinc-600 dark:text-zinc-400 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>© {new Date().getFullYear()} CarShop. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Addinas Car Rental. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="#" className="hover:text-primary-600 transition-colors">
               Twitter

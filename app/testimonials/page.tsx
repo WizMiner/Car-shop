@@ -48,6 +48,10 @@ export default async function TestimonialsPage(props: {
                   ))}
                 </div>
                 <p className="text-sm text-zinc-700 dark:text-zinc-300">{t.content}</p>
+                {/* Know More / View Details */}
+                <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+                  View Details
+                </button>
               </Link>
             );
           })}

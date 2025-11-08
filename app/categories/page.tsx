@@ -24,9 +24,10 @@ export default async function CategoriesPage() {
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((c) => (
-              <div
+              <Link
                 key={c.id}
-                className="group relative isolate overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 transition duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
+                href={`/cars?categoryId=${c.id}`}
+                className="group relative isolate overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 transition duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in block"
               >
                 {/* Background image */}
                 <div className="absolute inset-0 -z-10">
@@ -53,15 +54,11 @@ export default async function CategoriesPage() {
                       </p>
                     )}
                   </div>
-
-                  <Link
-                    href={`/cars?categoryId=${c.id}`}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary-500 text-white shadow-sm hover:bg-secondary-600 transition"
-                  >
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary-500 text-white shadow-sm transition group-hover:bg-secondary-600">
                     →
-                  </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

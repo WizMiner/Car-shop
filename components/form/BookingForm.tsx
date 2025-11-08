@@ -1,10 +1,23 @@
 // components/form/BookingForm.tsx
-
 "use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { API_BASE_URL } from "@/lib/api";
+
+// Simple Ethiopian phone validation (matches backend logic)
+function isValidEthiopianPhone(phone: string) {
+    if (!phone) return false;
+    const cleaned = phone.trim().replace(/[\s\-\(\)]/g, "");
+
+    // +251912345678, 251912345678, 0912345678, 912345678
+    return (
+        /^\+2519\d{8}$/.test(cleaned) ||
+        /^2519\d{8}$/.test(cleaned) ||
+        /^09\d{8}$/.test(cleaned) ||
+        /^9\d{8}$/.test(cleaned)
+    );
+}
 
 type BookingFormProps = {
     productId: number;
@@ -17,12 +30,22 @@ export default function BookingForm({ productId, pricePerDay }: BookingFormProps
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+    const [phoneError, setPhoneError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Frontend phone validation
+        if (!isValidEthiopianPhone(phone)) {
+            setPhoneError("Invalid Ethiopian phone number");
+            return;
+        } else {
+            setPhoneError(null);
+        }
+
         setLoading(true);
-        setMessage("");
+        setToast(null);
 
         try {
             const res = await fetch(`${API_BASE_URL}/api/bookings`, {
@@ -38,15 +61,21 @@ export default function BookingForm({ productId, pricePerDay }: BookingFormProps
                 }),
             });
 
-            if (!res.ok) throw new Error("Booking failed");
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData?.error || "Booking failed");
+            }
 
-            setMessage("Booking created successfully!");
+            setToast({ message: "Booking created successfully!", type: "success" });
+            setFullName("");
+            setPhone("");
             setStartDate("");
             setEndDate("");
         } catch (err: any) {
-            setMessage(err.message || "Something went wrong");
+            setToast({ message: err.message || "Something went wrong", type: "error" });
         } finally {
             setLoading(false);
+            setTimeout(() => setToast(null), 3000);
         }
     };
 
@@ -59,7 +88,7 @@ export default function BookingForm({ productId, pricePerDay }: BookingFormProps
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-3 relative">
             <div>
                 <label className="block text-sm font-medium">Full Name</label>
                 <input
@@ -76,9 +105,12 @@ export default function BookingForm({ productId, pricePerDay }: BookingFormProps
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="mt-1 w-full rounded-md border px-3 py-2"
+                    className={`mt-1 w-full rounded-md border px-3 py-2 ${
+                        phoneError ? "border-red-500" : ""
+                    }`}
                     required
                 />
+                {phoneError && <p className="text-red-500 text-sm mt-1">{phoneError}</p>}
             </div>
 
             <div>
@@ -107,7 +139,17 @@ export default function BookingForm({ productId, pricePerDay }: BookingFormProps
             <Button type="submit" disabled={loading} className="w-full">
                 {loading ? "Booking..." : "Book Now"}
             </Button>
-            {message && <p className="text-sm text-red-500">{message}</p>}
+
+            {/* Inline Toast */}
+            {toast && (
+                <div
+                    className={`fixed top-4 right-4 p-3 rounded shadow-md text-white z-50 ${
+                        toast.type === "success" ? "bg-green-500" : "bg-red-500"
+                    }`}
+                >
+                    {toast.message}
+                </div>
+            )}
         </form>
     );
 }

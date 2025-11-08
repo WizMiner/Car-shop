@@ -56,6 +56,10 @@ export default async function BlogsPage(props: {
                   </p>
                   <p className="line-clamp-3 text-sm text-zinc-600 dark:text-zinc-400">{b.content}</p>
                 </div>
+                {/* Know More / View Details */}
+                <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+                  View Details
+                </button>
               </Link>
             );
           })}

@@ -9,6 +9,8 @@ import type {
   Testimonial,
   Blog,
   Category,
+  About,
+  Service,
 } from "./types";
 
 type FetchOptions = RequestInit & { next?: { revalidate?: number } };
@@ -48,10 +50,10 @@ export function buildQuery(
 export async function fetchProducts(
   query: { page?: number; categoryId?: string; perPage?: number } = {}
 ) {
-  const q = buildQuery({ 
-    page: query.page, 
+  const q = buildQuery({
+    page: query.page,
     categoryId: query.categoryId,
-    perPage: query.perPage 
+    perPage: query.perPage,
   });
   return request<{ products: Product[]; meta: Meta }>(`/api/products${q}`, {
     next: { revalidate: 60 },
@@ -63,10 +65,12 @@ export async function fetchProduct(id: string) {
 }
 
 // Bookings
-export async function fetchBookings(query: { page?: number; perPage?: number } = {}) {
-  const q = buildQuery({ 
+export async function fetchBookings(
+  query: { page?: number; perPage?: number } = {}
+) {
+  const q = buildQuery({
     page: query.page,
-    perPage: query.perPage 
+    perPage: query.perPage,
   });
   return request<{ bookings: Booking[]; meta: Meta }>(`/api/bookings${q}`, {
     next: { revalidate: 60 },
@@ -78,9 +82,9 @@ export async function fetchBooking(id: string) {
 }
 
 // export async function createBooking(data: CreateBookingInput) {
-//   return request<{ 
-//     message: string; 
-//     booking: Booking; 
+//   return request<{
+//     message: string;
+//     booking: Booking;
 //   }>("/api/bookings", {
 //     method: "POST",
 //     body: JSON.stringify(data),
@@ -88,10 +92,12 @@ export async function fetchBooking(id: string) {
 // }
 
 // Testimonials
-export async function fetchTestimonials(query: { page?: number; perPage?: number } = {}) {
-  const q = buildQuery({ 
+export async function fetchTestimonials(
+  query: { page?: number; perPage?: number } = {}
+) {
+  const q = buildQuery({
     page: query.page,
-    perPage: query.perPage 
+    perPage: query.perPage,
   });
   return request<{ testimonials: Testimonial[]; meta: Meta }>(
     `/api/testimonials${q}`,
@@ -106,10 +112,12 @@ export async function fetchTestimonial(id: string) {
 }
 
 // Blogs
-export async function fetchBlogs(query: { page?: number; perPage?: number } = {}) {
-  const q = buildQuery({ 
+export async function fetchBlogs(
+  query: { page?: number; perPage?: number } = {}
+) {
+  const q = buildQuery({
     page: query.page,
-    perPage: query.perPage 
+    perPage: query.perPage,
   });
   return request<{ blogs: Blog[]; meta: Meta }>(`/api/blogs${q}`, {
     next: { revalidate: 120 },
@@ -133,11 +141,48 @@ export async function fetchProductsByCategory(
   query: { page?: number; perPage?: number } = {}
 ) {
   const id = categoryId.toString();
-  const q = buildQuery({ 
+  const q = buildQuery({
     page: query.page,
-    perPage: query.perPage 
+    perPage: query.perPage,
   });
-  return request<{ products: Product[]; meta: Meta }>(`/api/products/category/${id}${q}`, {
-    next: { revalidate: 60 },
+  return request<{ products: Product[]; meta: Meta }>(
+    `/api/products/category/${id}${q}`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+}
+
+// About
+export async function fetchAbouts(
+  query: { page?: number; perPage?: number } = {}
+) {
+  const q = buildQuery({
+    page: query.page,
+    perPage: query.perPage,
   });
+  return request<{ abouts: About[]; meta: Meta }>(`/api/about${q}`, {
+    next: { revalidate: 300 },
+  });
+}
+
+export async function fetchAbout(id: string | number) {
+  return request<About>(`/api/about/${id}`, { next: { revalidate: 300 } });
+}
+
+// Services
+export async function fetchServices(
+  query: { page?: number; perPage?: number } = {}
+) {
+  const q = buildQuery({
+    page: query.page,
+    perPage: query.perPage,
+  });
+  return request<{ services: Service[]; meta: Meta }>(`/api/services${q}`, {
+    next: { revalidate: 300 },
+  });
+}
+
+export async function fetchService(id: string | number) {
+  return request<Service>(`/api/services/${id}`, { next: { revalidate: 300 } });
 }

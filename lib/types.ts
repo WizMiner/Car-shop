@@ -110,3 +110,28 @@ export type Blog = {
   createdAt?: string;
   updatedAt?: string;
 };
+
+export type Service = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image?: string | null;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type About = {
+  id: number;
+  title: string;
+  description: string;
+  image?: string | null;
+  vision?: string;
+  mission?: string;
+  values?: string;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
