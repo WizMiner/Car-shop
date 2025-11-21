@@ -73,9 +73,9 @@ export default async function Home() {
       <CategoriesSection categories={categories.slice(0, 6)} />
       <ProductsSection products={featuredProducts} />
       <BlogSection blogs={recentBlogs} />
-      <ServicesSection services={services} />
       <AboutSection abouts={abouts} />
       <Excellence />
+      <ServicesSection services={services} />
       <Differentiators />
       <Clients />
       <PartnersSection partners={partners} />
