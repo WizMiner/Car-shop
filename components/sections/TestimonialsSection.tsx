@@ -31,7 +31,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
   const cardTestimonials = testimonials.map(mapBackendTestimonial);
 
   return (
-    <section id="testimonials" className="py-14 sm:py-16 lg:py-20">
+    <section id="testimonials" className="py-14 sm:py-16 lg:py-20 bg-background dark:bg-backgroundDark">
       <Container>
         <div className="mb-8 flex items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold sm:text-3xl">What customers say</h2>

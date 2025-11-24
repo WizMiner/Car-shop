@@ -34,34 +34,36 @@ export default async function TestimonialsPage(props: {
               <Link
                 href={`/testimonials/${t.id}`}
                 key={t.id}
-                className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-zinc-200 transition duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
+                className="flex flex-col justify-between rounded-2xl bg-white p-5 shadow-sm ring-1 ring-zinc-200 transition duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
               >
-                <div className="mb-3 flex flex-col gap-1">
-                  <div className="flex items-center gap-2">
-                    <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-zinc-200 dark:ring-zinc-800">
-                      <Image src={fullImage} alt={t.clientName} fill className="object-cover" unoptimized />
+                <div>
+                  <div className="mb-3 flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-zinc-200 dark:ring-zinc-800">
+                        <Image src={fullImage} alt={t.clientName} fill className="object-cover" unoptimized />
+                      </div>
+                      <div className="text-sm font-medium">{t.clientName}</div>
+                      {t.User?.email && <span className="text-xs text-zinc-500">• {t.User.email}</span>}
                     </div>
-                    <div className="text-sm font-medium">{t.clientName}</div>
-                    {t.User?.email && <span className="text-xs text-zinc-500">• {t.User.email}</span>}
+                    {(t.position || t.company) && (
+                      <div className="text-xs text-zinc-500">
+                        {t.position && <span>{t.position}</span>}
+                        {t.position && t.company && <span> • </span>}
+                        {t.company && <span>{t.company}</span>}
+                      </div>
+                    )}
                   </div>
-                  {(t.position || t.company) && (
-                    <div className="text-xs text-zinc-500">
-                      {t.position && <span>{t.position}</span>}
-                      {t.position && t.company && <span> • </span>}
-                      {t.company && <span>{t.company}</span>}
-                    </div>
-                  )}
+
+                  <div className="mb-2 text-amber-500">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span key={i}>{i < Math.max(0, Math.min(5, t.rating)) ? "★" : "☆"}</span>
+                    ))}
+                  </div>
+
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300">{t.content}</p>
                 </div>
 
-                <div className="mb-2 text-amber-500">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span key={i}>{i < Math.max(0, Math.min(5, t.rating)) ? "★" : "☆"}</span>
-                  ))}
-                </div>
-
-                <p className="text-sm text-zinc-700 dark:text-zinc-300">{t.content}</p>
-
-                <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+                <button className="mt-4 w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
                   View Details
                 </button>
               </Link>

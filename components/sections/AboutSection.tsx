@@ -12,8 +12,8 @@ interface AboutSectionProps {
 
 export default function AboutSection({ abouts }: AboutSectionProps) {
   return (
-    <section id="about" className="py-14 m-20 sm:py-16 lg:py-20 bg-background dark:bg-backgroundDark">
-      <Container>
+    <section id="about" className="py-14 sm:py-16 lg:py-20 bg-background dark:bg-backgroundDark">
+      <Container className="max-w-7xl">
         <div className="mb-10 flex items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold sm:text-3xl">About Us</h2>
           <Link href="/abouts" className="text-sm font-medium text-primary-600 hover:underline">
@@ -41,7 +41,7 @@ function AboutItem({ about }: AboutItemProps) {
 
   return (
     <Link href={`/abouts/${about.id}`} className="group block animate-fade-in">
-      <div className="rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 overflow-hidden mb-4">
+      <div className="mx-auto max-w-4xl rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 overflow-hidden mb-6">
         <div className="relative aspect-[16/9] w-full">
           <Image
             src={fullImage}
@@ -53,7 +53,7 @@ function AboutItem({ about }: AboutItemProps) {
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="mx-auto max-w-4xl space-y-2">
         <h3 className="text-2xl font-semibold sm:text-3xl">{about.title}</h3>
         {publishDate && (
           <time className="text-sm text-zinc-500 dark:text-zinc-400 block">

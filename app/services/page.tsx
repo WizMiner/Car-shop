@@ -37,8 +37,9 @@ export default async function ServicesPage(props: {
                             <Link
                                 href={`/services/${s.id}`}
                                 key={s.id}
-                                className="group rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
+                                className="flex flex-col justify-between group rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
                             >
+                                {/* Image */}
                                 <div className="relative aspect-video overflow-hidden rounded-t-2xl">
                                     <Image
                                         src={fullImage}
@@ -48,6 +49,8 @@ export default async function ServicesPage(props: {
                                         unoptimized
                                     />
                                 </div>
+
+                                {/* Content */}
                                 <div className="space-y-3 p-4">
                                     <time className="text-xs text-zinc-500">
                                         {s.createdAt ? new Date(s.createdAt).toLocaleDateString() : ""}
@@ -60,8 +63,9 @@ export default async function ServicesPage(props: {
                                         ETB {s.price.toFixed(0)}
                                     </p>
                                 </div>
-                                {/* Know More / View Details */}
-                                <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+
+                                {/* View Details Button */}
+                                <button className="mt-4 w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
                                     View Details
                                 </button>
                             </Link>

@@ -32,8 +32,9 @@ function ProductCardInline({ p }: { p: Product }) {
   return (
     <Link
       href={`/cars/${p.id}`}
-      className="group block overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
+      className="flex flex-col justify-between group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
     >
+      {/* Image */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         {fullCover ? (
           <Image
@@ -50,34 +51,25 @@ function ProductCardInline({ p }: { p: Product }) {
           {p.status}
         </span>
       </div>
+
+      {/* Content */}
       <div className="space-y-3 p-4">
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-base font-semibold leading-6">{p.title}</h3>
-          {/* <span className="rounded-full bg-muted-50 px-2 py-1 text-xs font-medium text-muted-700 dark:bg-zinc-800 dark:text-zinc-300">
-            ETB {p.pricePerDay}/day
-          </span> */}
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
           {p.make} {p.model} • {p.year}
         </p>
-        {/* <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
-          <span className="rounded-full bg-primary-50 px-2 py-0.5 text-primary-700 ring-1 ring-primary-100">
-            {p.Category?.name ?? "Uncategorized"}
-          </span>
-          <span>Owner: {toOwnerName(p)}</span>
-        </div> */}
-      </div>
-      <div className="mt-4 flex justify-between gap-2 px-4 pb-4">
-        {/* Know More / View Details */}
-          <button className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
-            View Details
-          </button>
       </div>
 
+      {/* Button */}
+      <button className="mt-4 w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
+        View Details
+      </button>
     </Link>
-
   );
 }
+
 
 function getPageParam(sp: { [key: string]: string | string[] | undefined }, key: string) {
   const raw = sp?.[key];
