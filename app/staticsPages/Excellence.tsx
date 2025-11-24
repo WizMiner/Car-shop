@@ -11,9 +11,9 @@ export default function Excellence() {
   ];
 
   return (
-    <section className="py-16 bg-white dark:bg-zinc-950">
+    <section className="py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 mb-8">
+        <h2 className="text-3xl font-extrabold text-foreground mb-8">
           Excellence in Action
         </h2>
 

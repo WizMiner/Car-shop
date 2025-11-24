@@ -22,10 +22,16 @@ export default function VerticalCarousel({
         <div className="relative h-[420px] sm:h-[460px] md:h-[500px] overflow-hidden">
 
             {/* Top fade */}
-            <div className="pointer-events-none absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-white dark:from-gray-900 to-transparent z-10" />
+            <div
+                className="pointer-events-none absolute top-0 left-0 w-full h-16 z-10
+             bg-gradient-to-b from-background/80 dark:from-background-dark/80 to-transparent"
+            />
 
             {/* Bottom fade */}
-            <div className="pointer-events-none absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-white dark:from-gray-900 to-transparent z-10" />
+            <div
+                className="pointer-events-none absolute bottom-0 left-0 w-full h-16 z-10
+             bg-gradient-to-t from-background/80 dark:from-background-dark/80 to-transparent"
+            />
 
             <Swiper
                 direction="vertical"

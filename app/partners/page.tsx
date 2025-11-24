@@ -37,8 +37,8 @@ export default async function PartnersPage(props: {
                         return (
                             <div
                                 key={p.id}
-                                className="group rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800"
-                            ><div className="relative aspect-video overflow-hidden rounded-t-2xl bg-white">
+                                className="group rounded-2xl shadow-sm ring-1 ring-zinc-200 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-md "
+                            ><div className="relative aspect-video overflow-hidden rounded-t-2xl ">
                                     <Image
                                         src={fullImage}
                                         alt={p.name}

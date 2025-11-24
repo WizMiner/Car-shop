@@ -5,6 +5,7 @@ import { fetchServices, API_BASE_URL } from "@/lib/api";
 import type { Service } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 function getPageParam(sp: { [key: string]: string | string[] | undefined }, key: string) {
     const raw = sp?.[key];
@@ -37,7 +38,7 @@ export default async function ServicesPage(props: {
                             <Link
                                 href={`/services/${s.id}`}
                                 key={s.id}
-                                className="flex flex-col justify-between group rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
+                                className="flex flex-col justify-between group rounded-2xl shadow-sm ring-1 ring-border transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md bg-card-background dark:bg-card-background-dark animate-fade-in"
                             >
                                 {/* Image */}
                                 <div className="relative aspect-video overflow-hidden rounded-t-2xl">
@@ -51,23 +52,21 @@ export default async function ServicesPage(props: {
                                 </div>
 
                                 {/* Content */}
-                                <div className="space-y-3 p-4">
-                                    {/* <time className="text-xs text-zinc-500">
-                                        {s.createdAt ? new Date(s.createdAt).toLocaleDateString() : ""}
-                                    </time> */}
-                                    <h3 className="text-base font-semibold leading-6">{s.name}</h3>
-                                    <p className="line-clamp-3 text-sm text-zinc-600 dark:text-zinc-400">
+                                <div className="space-y-2 p-4">
+                                    <h3 className="text-base font-semibold text-foreground dark:text-foreground-dark leading-6">
+                                        {s.name}
+                                    </h3>
+                                    <p className="line-clamp-3 text-sm text-muted-foreground dark:text-muted-foreground-dark">
                                         {s.description}
                                     </p>
-                                    {/* <p className="text-sm font-medium text-primary">
-                                        ETB {s.price.toFixed(0)}
-                                    </p> */}
                                 </div>
 
                                 {/* View Details Button */}
-                                <button className="mt-4 w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
-                                    View Details
-                                </button>
+                                <div className="p-4 pt-0">
+                                    <Button variant="primary" size="sm" className="w-full">
+                                        View Details
+                                    </Button>
+                                </div>
                             </Link>
                         );
                     })}

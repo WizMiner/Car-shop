@@ -68,7 +68,7 @@ export default async function Home() {
   const testimonials: Testimonial[] = testimonialsResp?.testimonials ?? [];
 
   return (
-    <main className="bg-zinc-50 dark:bg-black">
+    <main className="bg-background text-foreground">
       <Hero featuredProducts={featuredProducts} />
       <CategoriesSection categories={categories.slice(0, 6)} />
       <ProductsSection products={featuredProducts} />

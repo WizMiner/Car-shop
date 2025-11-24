@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,14 +17,15 @@ export default function BlogCard({ blog }: { blog: BlogCardType }) {
   const isVideo = blog.imageUrl?.match(/\.(mp4|webm|ogg|mkv)$/i);
 
   return (
-    <article className="group rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-all hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 flex flex-col">
+    <article className="group flex flex-col rounded-2xl shadow-sm ring-1 ring-muted bg-background transition-all hover:-translate-y-0.5 hover:shadow-md h-[400px]">
+      {/* Media */}
       {blog.imageUrl && (
         <div className="relative aspect-video overflow-hidden rounded-t-2xl">
           {isVideo ? (
             <video
               src={blog.imageUrl}
               controls
-              className="w-full h-full object-cover bg-black"
+              className="w-full h-full object-cover bg-background"
             />
           ) : (
             <Image
@@ -36,15 +38,27 @@ export default function BlogCard({ blog }: { blog: BlogCardType }) {
           )}
         </div>
       )}
-      <div className="space-y-3 p-4">
-          {blog.date && <time className="text-xs text-zinc-500">{blog.date}</time>}
-          <h3 className="text-base font-semibold leading-6">{blog.title}</h3>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">{blog.excerpt}</p>
-        {/* <div className="flex items-center justify-between text-xs text-zinc-500">
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-4 space-y-3">
+        {blog.date && <time className="text-xs text-muted block">{blog.date}</time>}
+
+        <h3 className="text-base font-semibold leading-6 text-foreground">{blog.title}</h3>
+
+        {/* Scrollable excerpt */}
+        <p className="text-sm text-muted line-clamp-3 overflow-y-auto max-h-[80px]">
+          {blog.excerpt}
+        </p>
+
+        {/* <div className="flex items-center justify-between text-xs text-muted">
           {blog.author && <span>By {blog.author}</span>}
           {blog.category && <span>{blog.category}</span>}
         </div> */}
-        <Link href={`/blogs/${blog.id}`} className="text-sm font-medium text-blue-600 hover:underline">
+
+        <Link
+          href={`/blogs/${blog.id}`}
+          className="text-sm font-medium text-primary hover:underline block mt-auto"
+        >
           Read more →
         </Link>
       </div>

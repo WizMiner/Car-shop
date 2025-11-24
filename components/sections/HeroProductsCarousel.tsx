@@ -14,7 +14,6 @@ function parseImages(images: unknown): string[] {
 
     let parsed: unknown = images;
 
-    // If it's a string, try JSON parsing
     if (typeof parsed === "string") {
         try {
             parsed = JSON.parse(parsed);
@@ -23,7 +22,7 @@ function parseImages(images: unknown): string[] {
         }
     }
 
-    // Handle double-encoded JSON strings
+    // Handle double-encoded JSON
     if (typeof parsed === "string") {
         try {
             parsed = JSON.parse(parsed);
@@ -45,8 +44,8 @@ export default function HeroProductsCarousel({ products }: HeroProductsCarouselP
         const interval = setInterval(() => {
             setFade(false); // fade out
             setTimeout(() => {
-                setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
-                setFade(true);
+                setCurrentIndex((prev) => (prev + 1) % products.length);
+                setFade(true); // fade in
             }, 500);
         }, 3000);
 
@@ -65,7 +64,6 @@ export default function HeroProductsCarousel({ products }: HeroProductsCarouselP
             <div
                 className={`relative w-full transition-opacity duration-500 ${fade ? "opacity-100" : "opacity-0"}`}
             >
-                {/* Wrapper with reduced aspect ratio */}
                 <div className="w-full aspect-[4/3] sm:aspect-[3/2] md:aspect-[16/9] relative">
                     <Image
                         src={imageUrl}
@@ -75,15 +73,14 @@ export default function HeroProductsCarousel({ products }: HeroProductsCarouselP
                         unoptimized
                     />
 
-                    {/* Bottom-centered overlay */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 px-4 py-2 rounded">
-                        <h3 className="text-white text-lg sm:text-xl md:text-2xl font-semibold text-center">
+                    {/* Overlay using theme-aware background */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded bg-black/40 dark:bg-white/20">
+                        <h3 className="text-white dark:text-black text-lg sm:text-xl md:text-2xl font-semibold text-center">
                             {title}
                         </h3>
                     </div>
                 </div>
             </div>
         </div>
-
     );
 }

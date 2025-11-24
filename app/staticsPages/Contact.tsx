@@ -12,24 +12,24 @@ import {
 
 export default function Contact() {
     return (
-        <section className="py-20 bg-white dark:bg-zinc-950">
+        <section className="py-20 bg-background">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">
+                    <h2 className="text-4xl font-extrabold text-foreground tracking-tight">
                         Contact Us
                     </h2>
-                    <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
+                    <p className="mt-4 text-lg text-muted">
                         We’re here to help — reach out for bookings, inquiries, or support.
                     </p>
                 </div>
 
                 {/* Company Name */}
                 <div className="text-center mb-12">
-                    <p className="text-xl font-semibold text-zinc-800 dark:text-zinc-300 leading-relaxed">
+                    <p className="text-xl font-semibold text-foreground leading-relaxed">
                         Adinas Transport and Car Rental Service <br />
-                        <span className="text-lg text-zinc-500 dark:text-zinc-400">
+                        <span className="text-lg text-muted">
                             አዲናስ ትራንስፖርትና የመኪና ኪራይ
                         </span>
                     </p>
@@ -40,18 +40,16 @@ export default function Contact() {
 
                     {/* Contact Info */}
                     <div className="space-y-8">
-
                         <InfoItem
-                            icon={<MapPin className="w-6 h-6 text-primary-600" />}
+                            icon={<MapPin className="w-6 h-6 text-primary" />}
                             text={
                                 <>
                                     <strong>Office:</strong> Pushkin Square, Addis Ababa, Ethiopia
                                 </>
                             }
                         />
-
                         <InfoItem
-                            icon={<Phone className="w-6 h-6 text-primary-600" />}
+                            icon={<Phone className="w-6 h-6 text-primary" />}
                             text={
                                 <>
                                     +251 911 510313 <br />
@@ -60,9 +58,8 @@ export default function Contact() {
                                 </>
                             }
                         />
-
                         <InfoItem
-                            icon={<Mail className="w-6 h-6 text-primary-600" />}
+                            icon={<Mail className="w-6 h-6 text-primary" />}
                             text={
                                 <>
                                     adinascarrent@gmail.com <br />
@@ -70,9 +67,8 @@ export default function Contact() {
                                 </>
                             }
                         />
-
                         <InfoItem
-                            icon={<Globe className="w-6 h-6 text-primary-600" />}
+                            icon={<Globe className="w-6 h-6 text-primary" />}
                             text="www.adinascarrent.com"
                         />
 
@@ -84,7 +80,7 @@ export default function Contact() {
                     </div>
 
                     {/* Google Map */}
-                    <div className="w-full h-110 rounded-xl overflow-hidden shadow-xl border border-zinc-200 dark:border-zinc-800 transition-transform hover:scale-[1.01]">
+                    <div className="w-full h-110 rounded-xl overflow-hidden shadow-xl border border-muted transition-transform hover:scale-[1.01]">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.604213785507!2d38.757!3d9.010!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85d88495edfd%3A0x8a5b50a39cba1c1!2sPushkin%20Square%2C%20Addis%20Ababa!5e0!3m2!1sen!2set!4v1700000000000"
                             width="100%"
@@ -97,7 +93,7 @@ export default function Contact() {
                 </div>
 
                 {/* Footer */}
-                <p className="text-center text-zinc-600 dark:text-zinc-500 mt-14 italic text-lg">
+                <p className="text-center text-muted mt-14 italic text-lg">
                     Adinas Car Rental – Your trusted partner in safe, reliable, and efficient transport solutions.
                 </p>
             </div>
@@ -109,9 +105,9 @@ export default function Contact() {
 
 function InfoItem({ icon, text }: { icon: React.ReactNode; text: React.ReactNode }) {
     return (
-        <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all">
+        <div className="flex items-start gap-4 p-4 rounded-xl bg-background border border-muted shadow-sm hover:shadow-md transition-all">
             <span className="mt-1">{icon}</span>
-            <p className="text-zinc-700 dark:text-zinc-300 text-lg leading-relaxed">{text}</p>
+            <p className="text-foreground/80 text-lg leading-relaxed">{text}</p>
         </div>
     );
 }
@@ -120,7 +116,7 @@ function SocialIcon({ href, Icon }: { href: string; Icon: any }) {
     return (
         <a
             href={href}
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-white hover:bg-primary-600 transition"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-muted text-foreground/70 hover:text-background hover:bg-primary transition"
         >
             <Icon className="w-5 h-5" />
         </a>

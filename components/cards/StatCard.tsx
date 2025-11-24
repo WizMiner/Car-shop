@@ -22,21 +22,19 @@ export default function StatCard({
         >
             <div
                 className={clsx(
-                    "relative w-full h-full rounded-2xl shadow-sm bg-white dark:bg-zinc-950 transition-transform duration-700",
+                    "relative w-full h-full rounded-2xl shadow-sm bg-background transition-transform duration-700",
                     hover ? "rotate-y-180" : "rotate-y-0"
                 )}
                 style={{ transformStyle: "preserve-3d" }}
             >
                 {/* Front */}
                 <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-4">
-                    <span className="text-4xl font-bold text-primary-600 dark:text-primary-400">
-                        {animatedValue}+
-                    </span>
-                    <p className="mt-2 text-zinc-700 dark:text-zinc-400 text-center">{title}</p>
+                    <span className="text-4xl font-bold text-primary">{animatedValue}+</span>
+                    <p className="mt-2 text-muted text-center">{title}</p>
                 </div>
 
                 {/* Back Face */}
-                <div className="absolute inset-0 rotate-y-180 backface-hidden flex items-center justify-center rounded-2xl bg-primary-600 text-white">
+                <div className="absolute inset-0 rotate-y-180 backface-hidden flex items-center justify-center rounded-2xl bg-primary text-background">
                     <p className="text-lg font-semibold">{title}</p>
                 </div>
             </div>

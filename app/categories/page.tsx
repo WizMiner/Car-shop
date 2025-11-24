@@ -5,9 +5,9 @@ import { fetchCategories } from "@/lib/api";
 import type { Category } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default async function CategoriesPage() {
-  // Fetch categories from API
   const resp = await fetchCategories();
   const categories: Category[] = resp?.categories ?? [];
 
@@ -20,45 +20,54 @@ export default async function CategoriesPage() {
         />
 
         {categories.length === 0 ? (
-          <p className="text-center text-zinc-500">No categories available.</p>
+          <p className="text-center text-muted-foreground dark:text-muted-foreground-dark">
+            No categories available.
+          </p>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((c) => (
+
+              // inside your map
               <Link
                 key={c.id}
                 href={`/cars?categoryId=${c.id}`}
-                className="group relative isolate overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 transition duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in block"
+                className="group relative isolate overflow-hidden rounded-2xl p-4 shadow-sm ring-1 ring-border transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md block bg-card-background dark:bg-card-background-dark"
               >
                 {/* Background image */}
-                <div className="absolute inset-0 -z-10">
-                  {c.image ? (
+                {c.image && (
+                  <div className="absolute inset-0 -z-10">
                     <Image
                       src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/${c.image}`}
                       alt={c.name}
                       fill
-                      className="object-cover opacity-10 transition group-hover:opacity-20"
+                      className="object-cover opacity-10 transition-opacity duration-300 group-hover:opacity-20"
                       unoptimized
                     />
-                  ) : (
-                    <div className="h-full w-full bg-muted-100" />
-                  )}
-                </div>
+                  </div>
+                )}
 
                 {/* Category content */}
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col justify-between h-full">
                   <div>
-                    <h3 className="text-base font-semibold">{c.name}</h3>
+                    <h3 className="text-base font-semibold text-foreground dark:text-foreground-dark">
+                      {c.name}
+                    </h3>
                     {c.description && (
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+                      <p className="text-sm text-muted-foreground dark:text-muted-foreground-dark line-clamp-2">
                         {c.description}
                       </p>
                     )}
                   </div>
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary-500 text-white shadow-sm transition group-hover:bg-secondary-600">
-                    →
+
+                  {/* Arrow icon */}
+                  <div className="mt-4 flex justify-end">
+                    <div className="flex items-center justify-center aspect-square h-10 w-10 rounded-full bg-primary shadow-sm transition-colors duration-300 group-hover:bg-primary-hover">
+                      <ArrowRight className="w-5 h-5 text-primary-foreground" />
+                    </div>
                   </div>
                 </div>
               </Link>
+
             ))}
           </div>
         )}

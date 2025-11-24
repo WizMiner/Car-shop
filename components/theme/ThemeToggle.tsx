@@ -1,41 +1,30 @@
 "use client";
 
-import React from "react";
-
-function getInitial(): "light" | "dark" {
-  if (typeof window === "undefined") return "light";
-  const stored = window.localStorage.getItem("theme");
-  if (stored === "light" || stored === "dark") return stored;
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  return prefersDark ? "dark" : "light";
-}
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import { Sun, Moon } from "lucide-react";
 
 export default function ThemeToggle() {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
-  const [mounted, setMounted] = React.useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
-    setMounted(true);
-    setMode(getInitial());
+  // Mount after first render to avoid hydration mismatch
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
-  React.useEffect(() => {
-    const root = document.documentElement;
-    if (mode === "dark") root.classList.add("dark");
-    else root.classList.remove("dark");
-    window.localStorage.setItem("theme", mode);
-  }, [mode]);
+  if (!mounted) return null;
+
+  const currentTheme = resolvedTheme || theme;
 
   return (
     <button
-      aria-label="Toggle dark mode"
-      className="rounded-full border border-zinc-300 bg-white px-3 py-2 text-sm shadow-token-sm transition-standard hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800"
-      onClick={() => setMode((m) => (m === "dark" ? "light" : "dark"))}
+      onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+      className="transition-standard p-2 rounded-full bg-muted text-foreground hover:bg-primary hover:text-white"
+      aria-label="Toggle Theme"
     >
-      {/* Render stable content on server to avoid hydration mismatch */}
-      {mounted ? (mode === "dark" ? "🌙" : "☀️") : "☀️"}
+      {currentTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );
 }
-
-

@@ -1,4 +1,4 @@
-// app/cars/page.tsx (Updated to use fetchProductsByCategory when filtering)
+// app/cars/page.tsx
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PaginationRouter from "@/components/navigation/PaginationRouter";
@@ -7,33 +7,25 @@ import { API_BASE_URL } from "@/lib/api";
 import type { Product } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
-
-// function toOwnerName(p: Product) {
-//   return `${p.User.firstName} ${p.User.lastName}`.trim();
-// }
+import Button from "@/components/ui/Button";
+import BookingSection from "@/components/form/BookingSection"; // already client internally
 
 function ProductCardInline({ p }: { p: Product }) {
   let images: string[] = [];
   if (typeof p.images === "string") {
     try {
       images = JSON.parse(p.images);
-      if (typeof images === "string") {
-        images = JSON.parse(images);
-      }
+      if (typeof images === "string") images = JSON.parse(images);
     } catch {
       images = [];
     }
-  } else if (Array.isArray(p.images)) {
-    images = p.images;
-  }
+  } else if (Array.isArray(p.images)) images = p.images;
+
   const cover = images?.[0];
   const fullCover = cover ? `${API_BASE_URL}/${cover}` : "/window.svg";
 
   return (
-    <Link
-      href={`/cars/${p.id}`}
-      className="flex flex-col justify-between group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800 animate-fade-in"
-    >
+    <div className="flex flex-col justify-between group overflow-hidden rounded-2xl shadow-sm ring-1 ring-zinc-200 transition-[transform,box-shadow] duration-standard ease-standard hover:-translate-y-0.5 hover:shadow-md dark:ring-zinc-800 animate-fade-in">
       {/* Image */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         {fullCover ? (
@@ -57,18 +49,28 @@ function ProductCardInline({ p }: { p: Product }) {
         <div className="flex items-start justify-between gap-3">
           <h3 className="text-base font-semibold leading-6">{p.title}</h3>
         </div>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-sm">
           {p.make} {p.model} • {p.year}
         </p>
       </div>
 
-      {/* Button */}
-      <button className="mt-4 w-full bg-gray-200 hover:bg-gray-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-md py-2 text-sm font-medium">
-        View Details
-      </button>
-    </Link>
+      {/* Buttons */}
+      <div className="flex items-start gap-2 p-4">
+        {/* View Details button */}
+        <Link href={`/cars/${p.id}`} className="flex-1">
+          <Button size="lg" className="w-full">View Details</Button>
+        </Link>
+
+        {/* Direct booking inline */}
+        <div className="flex-1">
+          <BookingSection productId={p.id} />
+        </div>
+      </div>
+
+    </div>
   );
 }
+
 
 
 function getPageParam(sp: { [key: string]: string | string[] | undefined }, key: string) {

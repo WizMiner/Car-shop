@@ -20,7 +20,7 @@ export default async function GalleriesPage({ searchParams }: { searchParams: Pr
                         <Link
                             href={`/galleries/${gallery.id}`}
                             key={gallery.id}
-                            className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-950 dark:ring-zinc-800 transition hover:shadow-md"
+                            className="rounded-2xl p-4 shadow-sm ring-1 ring-zinc-200 transition hover:shadow-md"
                         >
                             {gallery.images[0] && (
                                 <div className="relative h-48 w-full mb-3 rounded-lg overflow-hidden">

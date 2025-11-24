@@ -1,4 +1,6 @@
+// BookingSection.tsx
 "use client";
+import Button from "../ui/Button";
 
 import { useState } from "react";
 import BookingForm from "./BookingForm";
@@ -7,18 +9,30 @@ export default function BookingSection({ productId }: { productId: number }) {
     const [isBookingOpen, setIsBookingOpen] = useState(false);
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 relative">
             {!isBookingOpen ? (
-                <button
+
+                <Button
                     onClick={() => setIsBookingOpen(true)}
-                    className="w-full bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition"
+                    size="lg" variant="primary"
+                    aria-label="Close Booking Form"
                 >
                     Book Now
-                </button>
+                </Button>
             ) : (
-                <BookingForm productId={productId} />
+                <div className="relative border rounded-lg p-4 bg-white shadow-md">
+                    {/* Close Button */}
+                    <Button
+                        onClick={() => setIsBookingOpen(false)}
+                        size="lg" variant="primary"
+                        aria-label="Close Booking Form"
+                    >
+                        ×
+                    </Button>
+
+                    <BookingForm productId={productId} />
+                </div>
             )}
         </div>
     );
 }
-

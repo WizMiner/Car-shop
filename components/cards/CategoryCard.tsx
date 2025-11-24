@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 
@@ -11,7 +13,13 @@ export type CategoryCardType = {
 
 export default function CategoryCard({ category }: { category: CategoryCardType }) {
   return (
-    <div className="group relative isolate overflow-hidden rounded-2xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-zinc-950 dark:ring-zinc-800">
+    <div
+      className="group relative isolate overflow-hidden rounded-2xl p-4 shadow-sm ring-1 transition hover:-translate-y-0.5 hover:shadow-md"
+      style={{
+        backgroundColor: "var(--color-background)",
+        borderColor: "var(--color-muted)",
+      }}
+    >
       {category.imageUrl && (
         <div className="absolute inset-0 -z-10">
           <Image
@@ -23,19 +31,30 @@ export default function CategoryCard({ category }: { category: CategoryCardType 
           />
         </div>
       )}
+
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h3 className="text-base font-semibold">{category.name}</h3>
+          <h3 style={{ color: "var(--color-foreground)" }} className="text-base font-semibold">
+            {category.name}
+          </h3>
+
           {category.count !== undefined && (
-            <p className="text-sm text-zinc-500">{category.count} items</p>
+            <p style={{ color: "var(--color-muted)" }} className="text-sm">
+              {category.count} items
+            </p>
           )}
+
           {category.description && (
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+            <p style={{ color: "var(--color-muted)" }} className="text-sm line-clamp-2">
               {category.description}
             </p>
           )}
         </div>
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-red-500 text-white shadow-sm">
+
+        <span
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full shadow-sm"
+          style={{ backgroundColor: "var(--color-primary)", color: "var(--color-background)" }}
+        >
           →
         </span>
       </div>

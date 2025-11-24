@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import clsx from "clsx";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "ghost";
@@ -16,9 +17,9 @@ const sizeClasses: Record<NonNullable<ButtonProps["size"]>, string> = {
 
 const variantClasses: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary:
-    "bg-primary-600 text-white hover:bg-primary-700 focus-visible:outline-primary-600",
+    "bg-primary text-white hover:bg-primary-700 focus-visible:outline-primary-600",
   secondary:
-    "bg-secondary-500 text-white hover:bg-secondary-600 focus-visible:outline-secondary-500",
+    "bg-secondary text-white hover:bg-secondary-600 focus-visible:outline-secondary-500",
   ghost:
     "bg-transparent text-foreground border border-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900",
 };
@@ -32,21 +33,29 @@ export function Button({
   disabled,
   ...props
 }: ButtonProps) {
+  const spinnerColor =
+    variant === "primary" || variant === "secondary" ? "border-white/70" : "border-foreground/70";
+
   return (
     <button
-      className={[
+      className={clsx(
         "inline-flex items-center justify-center rounded-full font-medium transition-all duration-200",
         "shadow-sm hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
         sizeClasses[size],
         variantClasses[variant],
-        disabled || loading ? "opacity-60 cursor-not-allowed" : "",
-        className ?? "",
-      ].join(" ")}
+        (disabled || loading) && "opacity-60 cursor-not-allowed",
+        className
+      )}
       disabled={disabled || loading}
       {...props}
     >
       {loading && (
-        <span className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/70 border-t-transparent" />
+        <span
+          className={clsx(
+            "mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-t-transparent",
+            spinnerColor
+          )}
+        />
       )}
       {children}
     </button>
@@ -54,5 +63,3 @@ export function Button({
 }
 
 export default Button;
-
-

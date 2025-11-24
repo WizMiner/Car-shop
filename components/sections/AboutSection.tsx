@@ -41,7 +41,7 @@ function AboutItem({ about }: AboutItemProps) {
 
   return (
     <Link href={`/abouts/${about.id}`} className="group block animate-fade-in">
-      <div className="mx-auto max-w-4xl rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 overflow-hidden mb-6">
+      <div className="mx-auto max-w-4xl rounded-2xl ring-1 ring-zinc-200 overflow-hidden mb-6">
         <div className="relative aspect-[16/9] w-full">
           <Image
             src={fullImage}
@@ -56,36 +56,36 @@ function AboutItem({ about }: AboutItemProps) {
       <div className="mx-auto max-w-4xl space-y-2">
         <h3 className="text-2xl font-semibold sm:text-3xl">{about.title}</h3>
         {publishDate && (
-          <time className="text-sm text-zinc-500 dark:text-zinc-400 block">
+          <time className="text-sm text-zinc-500 block">
             Published on {publishDate}
           </time>
         )}
-        {about.description && <p className="text-lg text-zinc-700 dark:text-zinc-300 italic">{about.description}</p>}
+        {about.description && <p className="text-lg italic">{about.description}</p>}
 
         {about.mission && (
           <section className="mt-4">
-            <h4 className="text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
+            <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Mission
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300">{about.mission}</p>
+            <p className="">{about.mission}</p>
           </section>
         )}
 
         {about.vision && (
           <section className="mt-4">
-            <h4 className="text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
+            <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Vision
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300">{about.vision}</p>
+            <p className="">{about.vision}</p>
           </section>
         )}
 
         {about.values && (
           <section className="mt-4">
-            <h4 className="text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
+            <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Values
             </h4>
-            <p className="text-zinc-700 dark:text-zinc-300">{about.values}</p>
+            <p className="">{about.values}</p>
           </section>
         )}
       </div>
