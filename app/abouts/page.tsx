@@ -55,10 +55,10 @@ export default async function AboutPage(props: {
 
                                     <h2 className="text-3xl font-bold">{a.title}</h2>
 
-                                    {a.description && <p className="text-lg text-zinc-700 dark:text-zinc-300">{a.description}</p>}
-                                    {a.mission && <p className="text-lg text-zinc-700 dark:text-zinc-300"><strong>Mission:</strong> {a.mission}</p>}
-                                    {a.vision && <p className="text-lg text-zinc-700 dark:text-zinc-300"><strong>Vision:</strong> {a.vision}</p>}
-                                    {a.values && <p className="text-lg text-zinc-700 dark:text-zinc-300"><strong>Values:</strong> {a.values}</p>}
+                                    {a.description && <p className="text-lg ">{a.description}</p>}
+                                    {a.mission && <p className="text-lg "><strong>Mission:</strong> {a.mission}</p>}
+                                    {a.vision && <p className="text-lg "><strong>Vision:</strong> {a.vision}</p>}
+                                    {a.values && <p className="text-lg "><strong>Values:</strong> {a.values}</p>}
 
                                     {/* Optional CTA */}
                                     <a
