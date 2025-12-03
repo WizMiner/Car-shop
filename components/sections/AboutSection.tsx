@@ -38,37 +38,32 @@ interface AboutItemProps {
 
 function AboutItem({ about }: AboutItemProps) {
   const fullImage = about.image ? `${API_BASE_URL}/${about.image}` : "/window.svg";
-  // const publishDate = about.createdAt ? new Date(about.createdAt).toLocaleDateString() : "";
 
   return (
-    <Link href={`/abouts/${about.id}`} className="group block animate-fade-in">
-      <div className="mx-auto max-w-4xl rounded-2xl ring-1 ring-zinc-200 overflow-hidden mb-6">
-        <div className="relative aspect-[16/9] w-full">
-          <Image
-            src={fullImage}
-            alt={about.title}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            unoptimized
-          />
-        </div>
+    <div className="group block animate-fade-in mx-auto max-w-4xl rounded-2xl ring-1 ring-zinc-200 overflow-hidden">
+      {/* Image */}
+      <div className="relative aspect-[16/9] w-full">
+        <Image
+          src={fullImage}
+          alt={about.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          unoptimized
+        />
       </div>
 
-      <div className="mx-auto max-w-4xl space-y-2">
+      {/* Content */}
+      <div className="mx-auto max-w-4xl space-y-2 p-4">
         <h3 className="text-2xl font-semibold sm:text-3xl">{about.title}</h3>
-        {/* {publishDate && (
-          <time className="text-sm text-zinc-500 block">
-            Published on {publishDate}
-          </time>
-        )}
-        {about.description && <p className="text-lg italic">{about.description}</p>}
+
+        {/* {about.description && <p className="text-lg italic">{about.description}</p>}
 
         {about.mission && (
           <section className="mt-4">
             <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Mission
             </h4>
-            <p className="">{about.mission}</p>
+            <p>{about.mission}</p>
           </section>
         )}
 
@@ -77,7 +72,7 @@ function AboutItem({ about }: AboutItemProps) {
             <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Vision
             </h4>
-            <p className="">{about.vision}</p>
+            <p>{about.vision}</p>
           </section>
         )}
 
@@ -86,15 +81,19 @@ function AboutItem({ about }: AboutItemProps) {
             <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Values
             </h4>
-            <p className="">{about.values}</p>
+            <p>{about.values}</p>
           </section>
         )} */}
-        <div className="flex items-start gap-2 p-4">
-        <Link href={`/abouts`} className="flex-1">
-          <Button size="lg" className="w-full">Learn More</Button>
-        </Link>
+
+        {/* Learn More Button */}
+        <div className="mt-4">
+          <Link href={`/abouts/${about.id}`}>
+            <Button size="lg" className="w-full">
+              Learn More
+            </Button>
+          </Link>
+        </div>
       </div>
-      </div>
-    </Link>
+    </div>
   );
 }
