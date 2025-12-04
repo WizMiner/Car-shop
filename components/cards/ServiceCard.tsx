@@ -15,7 +15,7 @@ export default function ServiceCard({ service }: { service: ServiceCardType }) {
     return (
         <Link
             href={`/services/${service.id}`}
-            className="group flex flex-col h-[400px] rounded-2xl shadow-sm ring-1 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md"
+            className="group flex flex-col h-[300px] rounded-2xl shadow-sm ring-1 transition-transform duration-200 hover:-translate-y-1 hover:shadow-md"
             style={{
                 backgroundColor: "var(--color-background)",
                 borderColor: "var(--color-muted)",

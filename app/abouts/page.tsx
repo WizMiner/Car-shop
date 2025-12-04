@@ -65,12 +65,12 @@ export default async function AboutPage(props: {
                                     {a.values && <p className="text-lg "><strong>Values:</strong> {a.values}</p>}
 
                                     {/* Optional CTA */}
-                                    <a
+                                    {/* <a
                                         href={`/abouts/${a.id}`}
                                         className="inline-block mt-4 text-sm font-medium text-blue-600 hover:underline"
                                     >
                                         Learn More &rarr;
-                                    </a>
+                                    </a> */}
                                 </div>
                             </section>
                         );

@@ -110,6 +110,11 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t pt-6 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
           <p>© {new Date().getFullYear()} Adinas Car Rental. All rights reserved.</p>
+
+          <p className="text-center">
+            Developed by <span className="font-semibold hover:text-green-600 dark:hover:text-green-500 transition-colors">Abyssinia Software Technology</span>
+          </p>
+
           <div className="flex gap-6">
             <Link href="#" className="hover:text-red-600 dark:hover:text-red-500 transition-colors">Twitter</Link>
             <Link href="#" className="hover:text-red-600 dark:hover:text-red-500 transition-colors">LinkedIn</Link>

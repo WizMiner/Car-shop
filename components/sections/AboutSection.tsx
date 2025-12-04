@@ -40,26 +40,29 @@ function AboutItem({ about }: AboutItemProps) {
   const fullImage = about.image ? `${API_BASE_URL}/${about.image}` : "/window.svg";
 
   return (
-    <div className="group block animate-fade-in mx-auto max-w-4xl rounded-2xl ring-1 ring-zinc-200 overflow-hidden">
-      {/* Image */}
-      <div className="relative aspect-[16/9] w-full">
+    <div className="group flex flex-col md:flex-row items-center animate-fade-in mx-auto max-w-6xl rounded-2xl ring-1 ring-zinc-200 overflow-hidden">
+
+      {/* Image - Left Column */}
+      <div className="ml-8 w-full lg:w-1/2 relative aspect-[16/9] lg:h-[400px]">
         <Image
           src={fullImage}
           alt={about.title}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          width={600}
+          height={400}
+          className="object-cover w-full h-auto transition-transform duration-500 group-hover:scale-105"
           unoptimized
         />
+
       </div>
 
-      {/* Content */}
-      <div className="mx-auto max-w-4xl space-y-2 p-4">
+      {/* Content - Right Column */}
+      <div className="w-full md:w-1/2 p-6 md:p-10 space-y-4">
         <h3 className="text-2xl font-semibold sm:text-3xl">{about.title}</h3>
 
-        {/* {about.description && <p className="text-lg italic">{about.description}</p>}
+        {about.description && <p className="text-lg italic">{about.description}</p>}
 
         {about.mission && (
-          <section className="mt-4">
+          <section>
             <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Mission
             </h4>
@@ -68,7 +71,7 @@ function AboutItem({ about }: AboutItemProps) {
         )}
 
         {about.vision && (
-          <section className="mt-4">
+          <section>
             <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Vision
             </h4>
@@ -77,18 +80,18 @@ function AboutItem({ about }: AboutItemProps) {
         )}
 
         {about.values && (
-          <section className="mt-4">
+          <section>
             <h4 className="text-primary text-xl font-semibold border-b pb-1 mb-1 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300">
               Our Values
             </h4>
             <p>{about.values}</p>
           </section>
-        )} */}
+        )}
 
         {/* Learn More Button */}
         <div className="mt-4">
-          <Link href={`/abouts/${about.id}`}>
-            <Button size="lg" className="w-full">
+          <Link href={`/abouts`}>
+            <Button size="lg" className="w-full md:w-auto">
               Learn More
             </Button>
           </Link>

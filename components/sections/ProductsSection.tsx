@@ -1,8 +1,11 @@
+"use client";
+
 import Container from "@/components/ui/Container";
 import ProductCard, { Product as CardProduct } from "@/components/cards/ProductCard";
 import { Product as BackendProduct } from "@/lib/types";
 import Link from "next/link";
 import { API_BASE_URL } from "@/lib/api";
+import Carousel from "@/components/ui/Carousel";
 
 function parseImages(images: unknown): string[] {
   if (Array.isArray(images)) return images;
@@ -56,15 +59,30 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
       <Container>
         <div className="mb-8 flex items-center justify-between gap-4">
           <h2 className="text-2xl font-semibold sm:text-3xl">Featured Cars</h2>
+
+          {/* Center call-to-action */}
+          <span className="text-sm text-primary-600 font-medium hidden sm:inline">
+            Book your perfect ride today!
+          </span>
+
           <Link href="/cars" className="text-sm font-medium text-primary-600 hover:underline">
             View all
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Carousel */}
+        <Carousel
+          slidesPerView={1}
+          continuous={true}
+          breakpoints={{
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+            1280: { slidesPerView: 4 },
+          }}
+        >
           {cardProducts.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
-        </div>
+        </Carousel>
       </Container>
     </section>
   );
