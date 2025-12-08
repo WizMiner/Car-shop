@@ -1,8 +1,18 @@
 // app/galleries/[id]/page.tsx
 import Container from "@/components/ui/Container";
 import Image from "next/image";
-import { fetchGallery, API_BASE_URL } from "@/lib/api";
+import { fetchGallery, API_BASE_URL, fetchGalleries } from "@/lib/api";
 import type { Gallery } from "@/lib/types";
+
+// Generate static params for all galleries
+export async function generateStaticParams() {
+    const resp = await fetchGalleries({ perPage: 100 }); // fetch all galleries
+    const galleries = resp.data ?? [];
+
+    return galleries.map((g) => ({
+        id: g.id.toString(),
+    }));
+}
 
 export default async function GalleryDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;

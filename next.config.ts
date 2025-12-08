@@ -1,14 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
+  trailingSlash: true,
   images: {
-    domains: [
-      // 'localhost'
-      // 'api.adinascarrent.com'
-      'apiadinas.time-bingo.com'
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "apiadinas.time-bingo.com",
+      },
     ],
   },
-  /* config options here */
 };
 
 export default nextConfig;

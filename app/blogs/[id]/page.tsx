@@ -1,9 +1,18 @@
 // app/blogs/[id]/page.tsx
 import Container from "@/components/ui/Container";
-import { fetchBlog } from "@/lib/api";
-import { API_BASE_URL } from "@/lib/api";
+import { fetchBlog, fetchBlogs, API_BASE_URL } from "@/lib/api";
 import type { Blog } from "@/lib/types";
 import Image from "next/image";
+
+// Generate static params for SSG
+export async function generateStaticParams() {
+  const res = await fetchBlogs({ perPage: 100 }); // fetch all blogs
+  const blogs = res.blogs ?? [];
+
+  return blogs.map((b) => ({
+    id: b.id.toString(),
+  }));
+}
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -19,19 +28,9 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ id:
           {fullMedia && (
             <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800">
               {isVideo ? (
-                <video
-                  src={fullMedia}
-                  controls
-                  className="w-full h-full object-cover"
-                />
+                <video src={fullMedia} controls className="w-full h-full object-cover" />
               ) : (
-                <Image
-                  src={fullMedia}
-                  alt={blog.title}
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
+                <Image src={fullMedia} alt={blog.title} fill className="object-cover" unoptimized />
               )}
             </div>
           )}

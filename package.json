@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "lint": "eslint",
-    "clean": "rm -rf .next && echo 'Cleaned .next folder'"
+    "clean": "rm -rf .next out && echo 'Cleaned .next and out folders'"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

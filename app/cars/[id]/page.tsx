@@ -1,6 +1,6 @@
 // app/cars/[id]/page.tsx
 import Container from "@/components/ui/Container";
-import { fetchProduct } from "@/lib/api";
+import { fetchProduct, fetchProducts } from "@/lib/api";
 import { API_BASE_URL } from "@/lib/api";
 import type { Product } from "@/lib/types";
 import BookingSection from "@/components/form/BookingSection";
@@ -22,6 +22,17 @@ function getFullImageUrl(img: string): string {
   return img.startsWith("http") ? img : `${API_BASE_URL}/${img}`;
 }
 
+// 1️⃣ Generate static params for SSG
+export async function generateStaticParams() {
+  const res = await fetchProducts({ perPage: 100 }); // adjust perPage as needed
+  const products = res.products ?? [];
+
+  return products.map((p) => ({
+    id: p.id.toString(),
+  }));
+}
+
+// 2️⃣ Car detail page
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const product: Product = await fetchProduct(id);
@@ -46,9 +57,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Gallery */}
           <div className="lg:col-span-2">
-            <CarGallery 
-              title={product.title} 
-              images={images} 
+            <CarGallery
+              title={product.title}
+              images={images}
             />
           </div>
 

@@ -20,7 +20,7 @@ export default function BookingSection({ productId }: { productId: number }) {
                     Book Now
                 </Button>
             ) : (
-                <div className="relative border rounded-lg p-4 bg-white shadow-md">
+                <div className="relative border rounded-lg p-4 shadow-md">
                     {/* Close Button */}
                     <Button
                         onClick={() => setIsBookingOpen(false)}

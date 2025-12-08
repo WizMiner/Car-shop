@@ -5,10 +5,11 @@ import Link from "next/link";
 import { fetchGalleries, API_BASE_URL } from "@/lib/api";
 import type { Gallery } from "@/lib/types";
 
-export default async function GalleriesPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
-    const sp = await searchParams;
-    const page = Number(sp?.page ?? "1");
-    const resp = await fetchGalleries({ page });
+export const dynamic = "force-static";
+
+export default async function GalleriesPage() {
+    // Fetch only page 1
+    const resp = await fetchGalleries({ page: 1 });
     const galleries: Gallery[] = resp.data ?? [];
 
     return (

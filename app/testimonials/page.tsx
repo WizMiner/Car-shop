@@ -7,20 +7,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
-function getPageParam(sp: { [key: string]: string | string[] | undefined }, key: string) {
-  const raw = sp?.[key];
-  const str = Array.isArray(raw) ? raw[0] : raw;
-  const n = Number(str || "1");
-  return Number.isFinite(n) && n > 0 ? n : 1;
-}
+// Force static rendering
+export const dynamic = "force-static";
 
-export default async function TestimonialsPage(props: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const sp = await props.searchParams;
-  const page = getPageParam(sp, "page");
+export default async function TestimonialsPage() {
+  const page = 1; // default page
+
   const resp = await fetchTestimonials({ page });
-  const data = resp?.testimonials ?? [];
+  const data: Testimonial[] = resp?.testimonials ?? [];
 
   return (
     <main className="bg-background text-foreground dark:bg-backgroundDark dark:text-foregroundDark">
@@ -38,19 +32,14 @@ export default async function TestimonialsPage(props: {
                 className="flex flex-col justify-between rounded-2xl p-5 shadow-sm ring-1 ring-border bg-card-background dark:bg-card-background-dark animate-fade-in transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md"
               >
                 <div>
-                  {/* Client Info */}
                   <div className="mb-3 flex flex-col gap-1">
                     <div className="flex items-center gap-2">
                       <div className="relative h-9 w-9 overflow-hidden rounded-full ring-1 ring-border">
                         <Image src={fullImage} alt={t.clientName} fill className="object-cover" unoptimized />
                       </div>
-                      <div className="text-sm font-medium text-foreground dark:text-foreground-dark">
-                        {t.clientName}
-                      </div>
+                      <div className="text-sm font-medium text-foreground dark:text-foreground-dark">{t.clientName}</div>
                       {t.User?.email && (
-                        <span className="text-xs text-muted-foreground dark:text-muted-foreground-dark">
-                          • {t.User.email}
-                        </span>
+                        <span className="text-xs text-muted-foreground dark:text-muted-foreground-dark">• {t.User.email}</span>
                       )}
                     </div>
                     {(t.position || t.company) && (
@@ -62,24 +51,17 @@ export default async function TestimonialsPage(props: {
                     )}
                   </div>
 
-                  {/* Rating */}
                   <div className="mb-2 text-amber-500">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <span key={i}>{i < Math.max(0, Math.min(5, t.rating)) ? "★" : "☆"}</span>
                     ))}
                   </div>
 
-                  {/* Testimonial Content */}
-                  <p className="text-sm text-foreground-muted dark:text-foreground-muted-dark line-clamp-4">
-                    {t.content}
-                  </p>
+                  <p className="text-sm text-foreground-muted dark:text-foreground-muted-dark line-clamp-4">{t.content}</p>
                 </div>
 
-                {/* Optional Button (visual cue for click) */}
                 <div className="mt-4">
-                  <Button variant="primary" size="sm" className="w-full pointer-events-none">
-                    View Details
-                  </Button>
+                  <Button variant="primary" size="sm" className="w-full pointer-events-none">View Details</Button>
                 </div>
               </Link>
             );

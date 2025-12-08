@@ -58,12 +58,14 @@ export async function fetchProducts(
     perPage: query.perPage,
   });
   return request<{ products: Product[]; meta: Meta }>(`/api/products${q}`, {
-    next: { revalidate: 60 },
+    cache: "force-cache",
   });
 }
 
 export async function fetchProduct(id: string) {
-  return request<Product>(`/api/products/${id}`, { next: { revalidate: 60 } });
+  return request<Product>(`/api/products/${id}`, {
+    cache: "force-cache",
+  });
 }
 
 // Bookings
@@ -75,12 +77,14 @@ export async function fetchBookings(
     perPage: query.perPage,
   });
   return request<{ bookings: Booking[]; meta: Meta }>(`/api/bookings${q}`, {
-    next: { revalidate: 60 },
+    cache: "force-cache",
   });
 }
 
 export async function fetchBooking(id: string) {
-  return request<Booking>(`/api/bookings/${id}`, { next: { revalidate: 60 } });
+  return request<Booking>(`/api/bookings/${id}`, {
+    cache: "force-cache",
+  });
 }
 
 // export async function createBooking(data: CreateBookingInput) {
@@ -103,13 +107,15 @@ export async function fetchTestimonials(
   });
   return request<{ testimonials: Testimonial[]; meta: Meta }>(
     `/api/testimonials${q}`,
-    { next: { revalidate: 120 } }
+    {
+      cache: "force-cache",
+    }
   );
 }
 
 export async function fetchTestimonial(id: string) {
   return request<Testimonial>(`/api/testimonials/${id}`, {
-    next: { revalidate: 120 },
+    cache: "force-cache",
   });
 }
 
@@ -122,38 +128,43 @@ export async function fetchBlogs(
     perPage: query.perPage,
   });
   return request<{ blogs: Blog[]; meta: Meta }>(`/api/blogs${q}`, {
-    next: { revalidate: 120 },
+    cache: "force-cache",
   });
 }
 
 export async function fetchBlog(id: string) {
-  return request<Blog>(`/api/blogs/${id}`, { next: { revalidate: 120 } });
+  return request<Blog>(`/api/blogs/${id}`, { cache: "force-cache" });
 }
 
 // Categories
 export async function fetchCategories() {
   return request<{ categories: Category[]; meta: Meta }>(`/api/categories`, {
-    next: { revalidate: 300 },
+    cache: "force-cache",
   });
 }
 
 // products by category ID
 export async function fetchProductsByCategory(
-  categoryId: string | number,
+  categoryId: string | number | undefined,
   query: { page?: number; perPage?: number } = {}
 ) {
+  if (!categoryId) {
+    return { products: [], meta: { currentPage: 1, totalPages: 1 } };
+  }
+
   const id = categoryId.toString();
-  const q = buildQuery({
-    page: query.page,
-    perPage: query.perPage,
-  });
-  return request<{ products: Product[]; meta: Meta }>(
-    `/api/products/category/${id}${q}`,
-    {
-      next: { revalidate: 60 },
-    }
-  );
+  const q = buildQuery({ page: query.page, perPage: query.perPage });
+
+  try {
+    return await request<{ products: Product[]; meta: Meta }>(
+      `/api/products/category/${id}${q}`,
+      { cache: "force-cache" }
+    );
+  } catch {
+    return { products: [], meta: { currentPage: 1, totalPages: 1 } };
+  }
 }
+
 
 // About
 export async function fetchAbouts(
@@ -163,13 +174,16 @@ export async function fetchAbouts(
     page: query.page,
     perPage: query.perPage,
   });
+
   return request<{ abouts: About[]; meta: Meta }>(`/api/about${q}`, {
-    next: { revalidate: 300 },
+    cache: "force-cache",
   });
 }
 
 export async function fetchAbout(id: string | number) {
-  return request<About>(`/api/about/${id}`, { next: { revalidate: 300 } });
+  return request<About>(`/api/about/${id}`, {
+    cache: "force-cache",
+  });
 }
 
 // Services
@@ -181,12 +195,12 @@ export async function fetchServices(
     perPage: query.perPage,
   });
   return request<{ services: Service[]; meta: Meta }>(`/api/services${q}`, {
-    next: { revalidate: 300 },
+    cache: "force-cache",
   });
 }
 
 export async function fetchService(id: string | number) {
-  return request<Service>(`/api/services/${id}`, { next: { revalidate: 300 } });
+  return request<Service>(`/api/services/${id}`, { cache: "force-cache" });
 }
 
 // Partners
@@ -200,7 +214,7 @@ export async function fetchPartners(
 
   const res = await request<{ data: Partner[]; meta: Meta }>(
     `/api/partners${q}`,
-    { next: { revalidate: 120 } }
+    { cache: "force-cache" }
   );
 
   return {
@@ -210,7 +224,9 @@ export async function fetchPartners(
 }
 
 export async function fetchPartner(id: string | number) {
-  return request<Partner>(`/api/partners/${id}`, { next: { revalidate: 120 } });
+  return request<Partner>(`/api/partners/${id}`, {
+    cache: "force-cache",
+  });
 }
 
 // Fetch paginated galleries
@@ -223,7 +239,7 @@ export async function fetchGalleries(
   });
 
   return request<{ data: Gallery[]; meta: Meta }>(`/api/galleries${q}`, {
-    next: { revalidate: 120 },
+    cache: "force-cache",
   });
 }
 
@@ -233,7 +249,7 @@ export async function fetchGallery(id: number | string): Promise<Gallery> {
   const res = await request<{ success: boolean; data: Gallery }>(
     `/api/galleries/${id}`,
     {
-      next: { revalidate: 120 },
+      cache: "force-cache",
     }
   );
   return res.data;

@@ -34,7 +34,7 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cardCategories.map((c) => (
-            <Link key={c.id} href={`/cars?categoryId=${c.id}`}>
+            <Link key={c.id} href={`/categories/${c.id}`}>
               <CategoryCard category={c} />
             </Link>
           ))}

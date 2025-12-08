@@ -1,28 +1,18 @@
 // app/blogs/page.tsx
 import Container from "@/components/ui/Container";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { fetchBlogs } from "@/lib/api";
-import { API_BASE_URL } from "@/lib/api";
+import { fetchBlogs, API_BASE_URL } from "@/lib/api";
 import type { Blog } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 
+export const dynamic = "force-static"; // ✅ ensure static export
 
-function getPageParam(sp: { [key: string]: string | string[] | undefined }, key: string) {
-  const raw = sp?.[key];
-  const str = Array.isArray(raw) ? raw[0] : raw;
-  const n = Number(str || "1");
-  return Number.isFinite(n) && n > 0 ? n : 1;
-}
-
-export default async function BlogsPage(props: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const sp = await props.searchParams;
-  const page = getPageParam(sp, "page");
-  const resp = await fetchBlogs({ page });
-  const data = resp?.blogs ?? [];
+export default async function BlogsPage() {
+  // Fetch only the first page
+  const resp = await fetchBlogs({ page: 1 });
+  const data: Blog[] = resp?.blogs ?? [];
 
   return (
     <main className="bg-background text-foreground dark:bg-backgroundDark dark:text-foregroundDark">
@@ -41,14 +31,9 @@ export default async function BlogsPage(props: {
                   key={b.id}
                   className="flex flex-col justify-between group rounded-2xl bg-card-background dark:bg-card-background-dark shadow-sm ring-1 ring-border transition-transform duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-md animate-fade-in"
                 >
-                  {/* Media */}
                   <div className="relative aspect-video overflow-hidden rounded-t-2xl">
                     {isVideo ? (
-                      <video
-                        src={fullMedia}
-                        controls
-                        className="w-full h-full object-cover bg-black"
-                      />
+                      <video src={fullMedia} controls className="w-full h-full object-cover bg-black" />
                     ) : (
                       <Image
                         src={fullMedia}
@@ -73,7 +58,6 @@ export default async function BlogsPage(props: {
                     </p>
                   </div>
 
-                  {/* Button */}
                   <div className="p-4 pt-0">
                     <Button variant="primary" size="sm" className="w-full">
                       View Details

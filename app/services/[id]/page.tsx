@@ -1,8 +1,18 @@
 // app/services/[id]/page.tsx
 import Container from "@/components/ui/Container";
-import { fetchService, API_BASE_URL } from "@/lib/api";
+import { fetchService, fetchServices, API_BASE_URL } from "@/lib/api";
 import type { Service } from "@/lib/types";
 import Image from "next/image";
+
+// Generate static params for all services
+export async function generateStaticParams() {
+    const resp = await fetchServices({ perPage: 100 }); // fetch all services
+    const services = resp.services ?? [];
+
+    return services.map((s) => ({
+        id: s.id.toString(),
+    }));
+}
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;

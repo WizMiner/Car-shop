@@ -1,8 +1,18 @@
 // app/testimonials/[id]/page.tsx
 import Container from "@/components/ui/Container";
-import { fetchTestimonial, API_BASE_URL } from "@/lib/api";
+import { fetchTestimonial, fetchTestimonials, API_BASE_URL } from "@/lib/api";
 import type { Testimonial } from "@/lib/types";
 import Image from "next/image";
+
+// Generate static params for all testimonials
+export async function generateStaticParams() {
+  const resp = await fetchTestimonials({ perPage: 100 }); // fetch all testimonials
+  const testimonials = resp.testimonials ?? [];
+
+  return testimonials.map((t) => ({
+    id: t.id.toString(),
+  }));
+}
 
 export default async function TestimonialDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
